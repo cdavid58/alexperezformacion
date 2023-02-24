@@ -1,0 +1,181 @@
+{% extends '../base.html' %}
+{% block style %}
+
+	.t-white{
+		color: #fff !important;
+	}
+
+	.btn_comment{
+		background: #efb810 !important;
+	}
+
+	.btn_comment:hover{
+		background: #000 !important;
+		color:white;
+	}
+
+
+{% endblock %}
+{% load static %}
+{% block content %}
+
+<!-- Start Video Area -->
+<div class="youtube-area video-padding d-none d-sm-block" style="background : url(https://cdnx.jumpseller.com/herbolario-spa/image/22104602/resize/540/540?1656619586) !important;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="video-items-active">
+                    <div class="video-items text-center">
+                        <video class="video_introduction" controls>
+                            <source class="video_source" src="{% static 'assets/video/news2.mp4' %}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+<!-- End Start Video area-->
+ <div class="about-area2 gray-bg pt-60 pb-60">
+    <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Trending Tittle -->
+                    <div class="about-right mb-90">
+                        <div class="heading-news mb-30 pt-30">
+                            <h3 class="t-white">{{course.title}}</h3>
+                        </div>
+                        <div class="about-prea">
+                            <p class="about-pera1 mb-25 t-white">{{course.title}}</p>
+                        </div>
+                        <div class="social-share pt-30">
+                            <div class="section-tittle">
+                                <h3 class="mr-20 t-white">Comparte:</h3>
+                                <ul>
+                                    <li><a href="#"><img src="{% static 'assets/img/news/icon-ins.png' %}" alt=""></a></li>
+                                    <li><a href="https://www.facebook.com/sharer/sharer.php?u=https://buggy.pythonanywhere.com/"><img src="{% static 'assets/img/news/icon-fb.png' %}" alt=""></a></li>
+                                    <li><a href="#"><img src="https://img.icons8.com/color/48/null/tiktok--v1.png" style="width: 40px; height: 40px;" /></a></li>
+                                    <li><a href="#"><img src="{% static 'assets/img/news/icon-tw.png' %}" alt=""></a></li>
+                                    <li><a href="#"><img src="{% static 'assets/img/news/icon-yo.png' %}" alt=""></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- From -->
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <form class="form-contact contact_form mb-80" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <textarea class="form-control w-100 error t-white" name="message" id="message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'" placeholder="Enter Message"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input class="form-control error t-white" name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" placeholder="Enter your name">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input class="form-control error t-white" name="email" id="email" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder="Email">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <button type="submit" class="button button-contactForm boxed-btn boxed-btn2 btn_comment"> <strong>Enviar Mensaje</strong></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <!-- Flow Socail -->
+                    <div class="single-follow mb-45">
+                        <div class="single-box">
+                            <div class="follow-us d-flex align-items-center">
+                                <div class="follow-social">
+                                    <a href="#"><img src="assets/img/news/icon-tw.png" alt=""></a>
+                                </div>
+                                <div class="follow-count">
+                                    <span>Compra el curso</span>
+                                    <p>
+                                        <button class="btn btn-primary btn_shopping">Comprar</button>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="follow-us d-flex align-items-center">
+                                <!-- <div class="follow-social">
+                                    <a href="#"><img src="assets/img/news/icon-ins.png" alt=""></a>
+                                </div>
+                                <div class="follow-count">
+                                    <span>8,045</span>
+                                    <p>Fans</p>
+                                </div> -->
+                            </div>
+                            <div class="follow-us d-flex align-items-center">
+                                <div class="follow-social">
+                                    <a href="#"><img src="assets/img/news/icon-yo.png" alt=""></a>
+                                </div>
+                                <div class="follow-count">
+                                    <span>8,045</span>
+                                    <p>Fans</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- New Poster -->
+                    <div class="news-poster d-none d-lg-block">
+                        <img src="assets/img/news/news_card.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="https://checkout.wompi.co/widget.js"></script>
+<script>
+    $(document).ready(function(){
+        video = $(".video_source").get(0)
+        console.log(video.duration)
+        $(".btn_shopping").on('click',function(){
+             price = parseFloat('{{course.price}}')
+             var checkout = new WidgetCheckout({
+               currency: 'COP',
+               amountInCents: parseFloat(price) * 100,
+               reference: 'AD1221',
+               publicKey: 'pub_prod_plqlMjJxin3MvlL1YkGtpZ9qbcS6e97h',
+               redirectUrl: 'https://transaction-redirect.wompi.co/check', // Opcional
+               taxInCents: { // Opcional
+                 vat: 1900,
+                 consumption: 800
+               },
+               customerData: { // Opcional
+                 email:'lola@gmail.com',
+                 fullName: 'Lola Flores',
+                 phoneNumber: '3040777777',
+                 phoneNumberPrefix: '+57',
+                 legalId: '123456789',
+                 legalIdType: 'CC'
+               },
+               shippingAddress: { // Opcional
+                 addressLine1: "Calle 123 # 4-5",
+                 city: "Bogota",
+                 phoneNumber: '3019444444',
+                 region: "Cundinamarca",
+                 country: "CO"
+               }
+             })
+             checkout.open(function ( result ) {
+               var transaction = result.transaction
+               console.log('Transaction ID: ', transaction.id)
+               console.log('Transaction object: ', transaction)
+             })
+        })
+    })
+</script>
+{% endblock %}

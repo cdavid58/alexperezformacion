@@ -1,0 +1,201 @@
+{% extends '../base.html' %}
+
+{% load static %}
+{% block style %}
+	.carousel{
+		width:95%;
+		margin:auto;	
+	}
+	.carousel__container{
+		postion:relative;
+
+	}
+	.carousel__preview,
+	.carousel__next{
+		position:absolute;
+		display:block;
+		width:30px;
+		height:30px;
+		border:none;
+		top: calc(50% - 35px);
+		cursor:pointer;
+		line-height:30px;
+		text-align: center;
+		background:none;
+		color:#fff;
+		opacity:20%;
+	}
+	.carousel__preview:hover,
+	.carousel__next:hover{
+		opacity:100%
+	}
+	.carousel__preview{
+		left: -30px;
+	}
+	.carousel__next{
+		right: -30px;
+	}
+
+	.carousel__indicators .glider-dot{
+		display:block;
+		width:30px;
+		height:4px;
+		background:#fff;
+		opacity:.2;
+		border-radius:0;
+	}
+
+	.carousel__indicators .glider-dot:hover{
+		opacity:.5;
+	}
+
+	.carousel__indicators .glider-dot.active{
+		opacity:1;
+	}
+	.subtitle_carousel{
+		color:#fff;
+	}
+	.carousel__element{
+		padding:10px;
+		text-align: center;
+	}
+
+	.carousel__list{
+		overflow: hidden;
+	}
+
+	.title_carousel .text{
+		font-size:35px;
+		color: #fff;
+		text-align: center;
+	}
+
+	@media screen and (width < 800px){
+		.carousel{
+			width: 80%;
+		}
+
+		.title_carousel .text
+		{
+			font-size:25px;
+			color: #fff;
+			text-align: center;
+		}
+
+	}
+
+	.btn_shopping{
+		color:white !important;
+		border: 1px solid;
+		padding:10px;
+		border-color: #efb810;
+		border-radius: 30px;
+	}
+
+	.btn_shopping:hover{
+		background: #efb810;
+		border-radius: 30px;
+		color:#000 !important;
+	}
+{% endblock %}
+{% block content %}
+{% for i in category %}
+	<div class="container_fluid"> <br><br>
+		<div class="title_carousel">
+			<p class="text">{{i.name}}</p> 
+		</div>
+		<div class="carousel">
+			<div class="carousel__container">
+				<button arial-label="preview" class="carousel__preview"><i class="fa-solid fa-chevron-left"></i></button>
+				<div class="carousel__list">
+					{% for j in list_courses %}
+						{% if j.category.pk == i.pk %}
+							<div class="carousel__element">
+								<img src="{{j.miniature.url}}">
+								<p class="subtitle_carousel">{{j.title}}</p>
+								<a class="btn_shopping" href="{% url 'Course' j.pk %}">Ver Introducción </a>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+				<button arial-label="next" class="carousel__next"><i class="fa-solid fa-chevron-right"></i></button>
+			</div>
+			<div role="tablist" class="carousel__indicators"></div>
+		</div>
+		<br><br>
+	</div>
+{% endfor %}
+{% endblock %}
+{% block script %}
+	<script type="text/javascript" src="https://checkout.wompi.co/widget.js"></script>
+	<script>
+		$(document).ready(function(){
+			// $(".btn_shopping").on('click',function(){
+			// 	price = this.id
+			// 	var checkout = new WidgetCheckout({
+			// 	  currency: 'COP',
+			// 	  amountInCents: parseFloat(price) * 100,
+			// 	  reference: 'AD1221',
+			// 	  publicKey: 'pub_prod_plqlMjJxin3MvlL1YkGtpZ9qbcS6e97h',
+			// 	  redirectUrl: 'https://transaction-redirect.wompi.co/check', // Opcional
+			// 	  taxInCents: { // Opcional
+			// 	    vat: 1900,
+			// 	    consumption: 800
+			// 	  },
+			// 	  customerData: { // Opcional
+			// 	    email:'lola@gmail.com',
+			// 	    fullName: 'Lola Flores',
+			// 	    phoneNumber: '3040777777',
+			// 	    phoneNumberPrefix: '+57',
+			// 	    legalId: '123456789',
+			// 	    legalIdType: 'CC'
+			// 	  },
+			// 	  shippingAddress: { // Opcional
+			// 	    addressLine1: "Calle 123 # 4-5",
+			// 	    city: "Bogota",
+			// 	    phoneNumber: '3019444444',
+			// 	    region: "Cundinamarca",
+			// 	    country: "CO"
+			// 	  }
+			// 	})
+			// 	checkout.open(function ( result ) {
+			// 	  var transaction = result.transaction
+			// 	  console.log('Transaction ID: ', transaction.id)
+			// 	  console.log('Transaction object: ', transaction)
+			// 	})
+			// })
+			
+		})
+		window.addEventListener('load',function() {
+			new Glider(document.querySelector('.carousel__list'), 
+				{
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					dots: '.carousel__indicators',
+					arrows: {
+					prev: '.carousel__preview',
+					next: '.carousel__next'
+				},
+				responsive: [
+					{
+						// screens greater than >= 775px
+						breakpoint: 450,
+						settings: {
+							// Set to `auto` and provide item width to adjust to viewport
+							slidesToShow: 2,
+							slidesToScroll: 2
+						}
+					},
+					{
+						// screens greater than >= 1024px
+						breakpoint: 800,
+						settings: {
+							slidesToShow: 4,
+							slidesToScroll: 4
+						}
+					}
+				]
+			});
+		})
+	</script>
+{% endblock %}
